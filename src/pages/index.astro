@@ -1,32 +1,39 @@
 ---
-import Header from "../lib/components/Header.astro";
-import "../global.css";
+import Layout from "../lib/components/layouts/Layout.astro";
+import SOCIALS from "../lib/data/socials";
+import STATUS from "../lib/data/status";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <Header />
-        <main>
-            <section>
-                <h1>Karsten pedersen</h1>
-                <p>Computer science student from Denmark.</p>
-            </section>
-            <section>
-                <h2>Status</h2>
-                <p>
-                    Currently taking a bachelor in computer science @ <a
-                        href="https://www.sdu.dk/en/uddannelse/bachelor/datalogi"
-                        >University of Southern Denmark, SDU</a
-                    >.
-                </p>
-            </section>
-        </main>
-    </body>
-</html>
+<Layout>
+  <section>
+    <h1>Karsten pedersen</h1>
+    <p>
+      I'm a software developer based in Odense, Denmark. I'm currently working
+      at <a href={STATUS.kmdStudentWorker.url}>{STATUS.kmdStudentWorker.name}</a
+      >, and taking a Bachelor's degree in computer science at <a
+        href={STATUS.computerScienceBachelor.url}
+        >{STATUS.computerScienceBachelor.name}</a
+      >. You can checkout my <a href={SOCIALS.github.url}
+        >{SOCIALS.github.name}</a
+      >, contact me on <a href={SOCIALS.linkedin.url}>{SOCIALS.linkedin.name}</a
+      >, <a
+        href="mailto:karstenfp.all@gmail.com?subject=Hey%20cool%20website%2C%20"
+        >send me an email</a
+      >, or snoop around on this website.
+    </p>
+  </section>
+  <section>
+    <h2>Projects</h2>
+    <ul>
+      <li>
+        <a href="/intersport">INTERSPORT</a>
+      </li>
+      <li>
+        <a href="/intersport">Pacman in Java</a>
+      </li>
+      <li>
+        <a href="/intersport">KMD A/S</a>
+      </li>
+    </ul>
+  </section>
+</Layout>
