@@ -1,0 +1,43 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Header from "../Header.astro";
+import { format } from "date-fns";
+
+const { post } = Astro.props;
+const frontmatter = post.data;
+const { Content, headings } = await post.render();
+---
+
+<BaseLayout>
+    <Header />
+    <main>
+        <article class="apply py-2 px-4 max-w-xl m-auto">
+            <h1>{frontmatter.title}</h1>
+            <p>Published: {format(frontmatter.publishedAt, "PPp")}</p>
+            {frontmatter.publishedAt.getTime() !== frontmatter.editedAt.getTime() && <p>Edited: {format(frontmatter.editedAt, "PPp")}</p>}
+            <ul>
+                {frontmatter.tags.map(tag => (
+                    <li><a href="/blogs/">{tag}</a></li>
+                ))}
+            </ul>
+
+            <hr />
+
+            <ul>
+                {headings.map(heading => (
+                    <li class=`ml-[calc(1ch*${heading.depth})]`><a href=`/blog/${post.slug}#${heading.slug}`>{heading.text}</a></li>
+                ))}
+            </ul>
+
+            <hr />
+
+            <Content />
+
+            <hr />
+
+            {frontmatter.relatedPosts.map(p => (
+                <li><a href={p.slug}>{p.slug}</a></li>
+            ))}
+        </article>
+    <main/>
+</BaseLayout>

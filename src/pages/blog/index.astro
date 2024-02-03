@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from "../../lib/components/layouts/Layout.astro";
+import SOCIALS from "../../lib/data/socials";
+import STATUS from "../../lib/data/status";
+
+const allPosts = await getCollection("blog", ({ data }) => {
+    return data.draft !== true;
+});
+---
+
+<Layout>
+  <section>
+    <h1>Blogs</h1>
+    <ul>
+      {allPosts.map(post => (
+        <li>
+          <a href=`/blog/${post.slug}`>{post.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+

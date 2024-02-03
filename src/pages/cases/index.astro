@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from "../../lib/components/layouts/Layout.astro";
+
+const allCases = await getCollection("cases", ({ data }) => {
+    return data.draft !== true;
+});
+---
+
+<Layout>
+  <section>
+    <h1>Cases</h1>
+    <ul>
+      {allCases.map(c => (
+        <li>
+          <a href=`/cases/${c.slug}`>{c.data.title}</a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</Layout>
+
+

@@ -9,6 +9,15 @@
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      @apply scroll-auto;
+    }
+  }
+
   h1,
   h2,
   h3 {
@@ -31,5 +40,9 @@
 
   ul {
     @apply list-disc list-inside;
+  }
+
+  hr {
+    @apply my-4;
   }
 }

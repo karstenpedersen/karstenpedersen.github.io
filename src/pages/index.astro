@@ -1,12 +1,17 @@
 ---
+import { getCollection } from 'astro:content';
 import Layout from "../lib/components/layouts/Layout.astro";
 import SOCIALS from "../lib/data/socials";
 import STATUS from "../lib/data/status";
+
+const allCases = await getCollection("cases", ({ data }) => {
+    return data.draft !== true;
+});
 ---
 
 <Layout>
   <section>
-    <h1>Karsten pedersen</h1>
+    <h1>Karsten Pedersen</h1>
     <p>
       I'm a software developer based in Odense, Denmark. I'm currently working
       at <a href={STATUS.kmdStudentWorker.url}>{STATUS.kmdStudentWorker.name}</a
@@ -23,17 +28,13 @@ import STATUS from "../lib/data/status";
     </p>
   </section>
   <section>
-    <h2>Projects</h2>
+    <h2>Cases</h2>
     <ul>
-      <li>
-        <a href="/intersport">INTERSPORT</a>
-      </li>
-      <li>
-        <a href="/intersport">Pacman in Java</a>
-      </li>
-      <li>
-        <a href="/intersport">KMD A/S</a>
-      </li>
+      {allCases.map(c => (
+        <li>
+          <a href=`/cases/${c.slug}`>{c.data.title}</a>
+        </li>
+      ))}
     </ul>
   </section>
 </Layout>
