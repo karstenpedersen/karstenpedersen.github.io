@@ -1,12 +1,12 @@
 ---
-import Header from "../Header.astro";
+import PortfolioHeader from "../PortfolioHeader.astro";
 import BaseLayout from "./BaseLayout.astro";
 const { title = "Karsten Pedersen" } = Astro.props;
 ---
 
 <BaseLayout>
-    <Header />
-    <main>
-        <slot />
-    </main>
+  <PortfolioHeader />
+  <main>
+    <slot />
+  </main>
 </BaseLayout>

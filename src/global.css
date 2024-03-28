@@ -3,9 +3,16 @@
 @tailwind utilities;
 
 :root {
+  --primary: #ffabe7;
+  --secondary: #abe7ff;
+  --dark: #1d1d1d;
+  --light: #fafafa;
   --link: #000055;
   --link-visited: #551a8b;
   --link-active: #aa0000;
+  /* --link: #000055; */
+  /* --link-visited: #551a8b; */
+  /* --link-active: #aa0000; */
 }
 
 @layer base {
@@ -16,6 +23,10 @@
     html {
       @apply scroll-auto;
     }
+  }
+
+  body {
+    /* background: black; */
   }
 
   h1,
@@ -45,4 +56,82 @@
   hr {
     @apply my-4;
   }
+
+  blockquote p {
+    @apply italic p-4 bg-[#eeeeee] rounded;
+  }
+  blockquote p::before {
+    content: "\201C";
+  }
+  blockquote p::after {
+    content: "\201D";
+  }
+}
+
+@layer components {
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+      --size: 400px;
+    }
+    100% {
+      transform: rotate(360deg);
+      --size: 800px;
+    }
+  }
+
+  .background {
+    --size: 400px;
+    --speed: 30s;
+    --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+
+    position: fixed;
+    /* left: 200px; */
+    /* top: 200px; */
+    z-index: -1;
+    /* left: 400px; */
+    /* top: 400px; */
+    translate: -50% -50%;
+    width: var(--size);
+    height: var(--size);
+    filter: blur(calc(var(--size) / 5));
+    background: linear-gradient(var(--light), #ffabe7);
+    animation: rotate var(--speed) var(--easing) alternate infinite;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+  }
+
+  /* .background::before { */
+  /*   content: ""; */
+  /*   position: absolute; */
+  /*   left: 200px; */
+  /*   top: 200px; */
+  /*   translate: -50% -50%; */
+  /*   width: 200px; */
+  /*   aspect-ratio: 1; */
+  /*   background: white; */
+  /*   border-radius: 50%; */
+  /*   filter: blur(2rem); */
+  /* } */
+  /**/
+  /* .background::after { */
+  /*   content: ""; */
+  /*   position: fixed; */
+  /*   inset: 0; */
+  /*   background: radial-gradient(circle, lime, transparent 30%), */
+  /*     conic-gradient( */
+  /*       red, */
+  /*       blue, */
+  /*       green, */
+  /*       yellow, */
+  /*       purple, */
+  /*       magenta, */
+  /*       cyan, */
+  /*       yellow, */
+  /*       orangered, */
+  /*       red */
+  /*     ); */
+  /*   mix-blend-mode: color-dodge; */
+  /*   min-height: 100vh; */
+  /*   opacity: 1; */
+  /* } */
 }

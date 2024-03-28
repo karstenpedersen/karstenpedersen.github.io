@@ -1,6 +1,7 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import Header from "../Header.astro";
+import BlogLayout from "./BlogLayout.astro";
+import TableOfContents from "../TableOfContents.astro";
+import Tags from "../Tags.astro";
 import { format } from "date-fns";
 
 const { post } = Astro.props;
@@ -8,36 +9,26 @@ const frontmatter = post.data;
 const { Content, headings } = await post.render();
 ---
 
-<BaseLayout>
-    <Header />
-    <main>
-        <article class="apply py-2 px-4 max-w-xl m-auto">
-            <h1>{frontmatter.title}</h1>
-            <p>Published: {format(frontmatter.publishedAt, "PPp")}</p>
-            {frontmatter.publishedAt.getTime() !== frontmatter.editedAt.getTime() && <p>Edited: {format(frontmatter.editedAt, "PPp")}</p>}
-            <ul>
-                {frontmatter.tags.map(tag => (
-                    <li><a href="/blogs/">{tag}</a></li>
-                ))}
-            </ul>
+<BlogLayout>
+  <article class="apply py-2 px-4 max-w-xl m-auto">
+    <h1>{frontmatter.title}</h1>
 
-            <hr />
+    <div>
+      <p>Published: {format(frontmatter.publishedAt, "PP")}</p>
+      {frontmatter.publishedAt.getTime() !== frontmatter.editedAt.getTime() && <p>Edited: {format(frontmatter.editedAt, "PPp")}</p>}
 
-            <ul>
-                {headings.map(heading => (
-                    <li class=`ml-[calc(1ch*${heading.depth})]`><a href=`/blog/${post.slug}#${heading.slug}`>{heading.text}</a></li>
-                ))}
-            </ul>
+      <Tags tags={frontmatter.tags} />
+    </div>
 
-            <hr />
+    <hr />
 
-            <Content />
+    <Content />
 
-            <hr />
+    <hr />
 
-            {frontmatter.relatedPosts.map(p => (
-                <li><a href={p.slug}>{p.slug}</a></li>
-            ))}
-        </article>
-    <main/>
-</BaseLayout>
+    <h2>Related Posts</h2>
+    {frontmatter.relatedPosts.map(p => (
+      <li><a href={p.slug}>{p.slug}</a></li>
+    ))}
+  </article>
+</BlogLayout>

@@ -1,10 +1,16 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from "../lib/components/layouts/Layout.astro";
+import BlogList from "../lib/components/BlogList.astro";
+import CaseList from "../lib/components/CaseList.astro";
 import SOCIALS from "../lib/data/socials";
 import STATUS from "../lib/data/status";
 
 const allCases = await getCollection("cases", ({ data }) => {
+    return data.draft !== true;
+});
+
+const allBlogs = await getCollection("blog", ({ data }) => {
     return data.draft !== true;
 });
 ---
@@ -29,12 +35,10 @@ const allCases = await getCollection("cases", ({ data }) => {
   </section>
   <section>
     <h2>Cases</h2>
-    <ul>
-      {allCases.map(c => (
-        <li>
-          <a href=`/cases/${c.slug}`>{c.data.title}</a>
-        </li>
-      ))}
-    </ul>
+    <CaseList cases={allCases} />
+  </section>
+  <section>
+    <h2>Blogs</h2>
+    <BlogList blogs={allBlogs} />
   </section>
 </Layout>

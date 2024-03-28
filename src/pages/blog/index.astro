@@ -1,24 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
-import Layout from "../../lib/components/layouts/Layout.astro";
-import SOCIALS from "../../lib/data/socials";
-import STATUS from "../../lib/data/status";
+import BlogLayout from "../../lib/components/layouts/BlogLayout.astro";
+import BlogList from "../../lib/components/BlogList.astro";
 
 const allPosts = await getCollection("blog", ({ data }) => {
     return data.draft !== true;
 });
 ---
 
-<Layout>
+<BlogLayout>
   <section>
     <h1>Blogs</h1>
-    <ul>
-      {allPosts.map(post => (
-        <li>
-          <a href=`/blog/${post.slug}`>{post.data.title}</a>
-        </li>
-      ))}
-    </ul>
+    <BlogList blogs={allPosts} />
   </section>
-</Layout>
+</BlogLayout>
 
