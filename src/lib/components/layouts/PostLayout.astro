@@ -1,14 +1,14 @@
 ---
 import BlogLayout from "./BlogLayout.astro";
 import BlogList from "../content/blog/BlogList.astro";
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 
 const { post } = Astro.props;
 const frontmatter = post.data;
 const { Content } = await post.render();
 
 const blogs = await getCollection("blog", ({ slug }) => {
-  return frontmatter.relatedPosts.some(blog => blog.slug === slug);
+  return frontmatter.relatedPosts.some((blog: CollectionEntry<'blog'>) => blog.slug === slug);
 });
 ---
 

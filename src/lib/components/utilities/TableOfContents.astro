@@ -3,7 +3,7 @@ const { post, headings } = Astro.props;
 ---
 
 <ul>
-    {headings.map(heading => (
+  {headings.map((heading: {depth: number, slug: string, text: string}) => (
         <li class=`ml-[calc(1ch*${heading.depth})]`>
             <a href=`/blog/${post.slug}#${heading.slug}`>{heading.text}</a>
         </li>
