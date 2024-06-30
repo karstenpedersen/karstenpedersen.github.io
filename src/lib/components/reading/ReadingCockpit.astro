@@ -1,0 +1,27 @@
+---
+import ThemeSwitcher from "../utilities/ThemeSwitcher.astro";
+import IconButton from "../ui/IconButton.astro";
+import { Icon } from 'astro-icon/components';
+---
+
+<div>
+  <Icon name="palette" />
+  <ThemeSwitcher />
+  <IconButton icon="a-arrow-down" />
+</div>
+
+<script>
+  const readingAreaElement = document.getElementById('reading-area');
+  readingAreaElement?.classList.add(localStorage.readingFontSize);
+
+  document.getElementById('font-size-selector')?.addEventListener('click', () => {
+    readingAreaElement?.classList.remove('text-md', 'text-lg');
+    if (localStorage.readingFontSize == 'text-md') {
+      readingAreaElement?.classList.add('text-lg');
+      localStorage.readingFontSize = 'text-lg';
+    } else {
+      readingAreaElement?.classList.add('text-md');
+      localStorage.readingFontSize = 'text-md';
+    }
+  });
+</script>

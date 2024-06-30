@@ -3,16 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --primary: #ffabe7;
-  --secondary: #abe7ff;
-  --dark: #1d1d1d;
+  --dark: #060609;
+  --darkgray: #27272A;
+  --gray: #A1A1AA;
+  --lightgray: #f6f8fa;
   --light: #fafafa;
-  --link: #000055;
-  --link-visited: #551a8b;
-  --link-active: #aa0000;
-  /* --link: #000055; */
-  /* --link-visited: #551a8b; */
-  /* --link-active: #aa0000; */
 }
 
 @layer base {
@@ -26,31 +21,26 @@
   }
 
   body {
-    /* background: black; */
+    @apply flex flex-col min-h-[100dvh] bg-light dark:bg-dark text-dark dark:text-light transition-colors duration-700;
+  }
+  main {
+    @apply mb-8;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-bold;
+    @apply font-bold mt-4;
   }
   h1 {
-    @apply text-xl;
+    @apply text-3xl;
   }
   h2 {
-    @apply text-lg;
+    @apply text-xl;
   }
 
-  a {
-    @apply underline text-link active:text-link-active visited:text-link-visited;
-  }
-
-  section {
-    @apply py-2 px-4 max-w-xl;
-  }
-
-  ul {
-    @apply list-disc list-inside;
+  p > a {
+    @apply underline dark:text-light;
   }
 
   hr {
@@ -58,7 +48,7 @@
   }
 
   blockquote p {
-    @apply italic p-4 bg-[#eeeeee] rounded;
+    @apply italic p-4 bg-lightgray text-dark rounded dark:bg-darkgray dark:text-light;
   }
   blockquote p::before {
     content: "\201C";
@@ -66,18 +56,50 @@
   blockquote p::after {
     content: "\201D";
   }
+
+  p {
+    @apply mt-4 text-justify;
+  }
+
 }
 
 @layer components {
-  @keyframes rotate {
-    0% {
-      transform: rotate(0deg);
-      --size: 400px;
-    }
-    100% {
-      transform: rotate(360deg);
-      --size: 800px;
-    }
+  .content-grid {
+    --padding-inline: 1rem;
+    --content-max-width: 36rem;
+    --breakout-max-width: 40rem;
+
+    --breakout-size: calc(
+      (var(--breakout-max-width) - var(--content-max-width)) / 2
+    );
+
+    display: grid;
+    grid-template-columns:
+      [full-width-start] minmax(var(--padding-inline), 1fr)
+      [breakout-start] minmax(0, var(--breakout-size))
+      [content-start] min(
+        100% - (var(--padding-inline) * 2),
+        var(--content-max-width)
+      )
+      [content-end]
+      minmax(0, var(--breakout-size)) [breakout-end]
+      minmax(var(--padding-inline), 1fr) [full-width-end];
+  }
+
+  .content-grid > :not(.breakout, .full-width),
+  .full-width > :not(.breakout, .full-width) {
+    grid-column: content;
+  }
+
+  .content-grid > .breakout {
+    grid-column: breakout;
+  }
+
+  .content-grid > .full-width {
+    grid-column: full-width;
+
+    display: grid;
+    grid-template-columns: inherit;
   }
 
   .background {
@@ -100,38 +122,38 @@
     border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
   }
 
-  /* .background::before { */
-  /*   content: ""; */
-  /*   position: absolute; */
-  /*   left: 200px; */
-  /*   top: 200px; */
-  /*   translate: -50% -50%; */
-  /*   width: 200px; */
-  /*   aspect-ratio: 1; */
-  /*   background: white; */
-  /*   border-radius: 50%; */
-  /*   filter: blur(2rem); */
-  /* } */
-  /**/
-  /* .background::after { */
-  /*   content: ""; */
-  /*   position: fixed; */
-  /*   inset: 0; */
-  /*   background: radial-gradient(circle, lime, transparent 30%), */
-  /*     conic-gradient( */
-  /*       red, */
-  /*       blue, */
-  /*       green, */
-  /*       yellow, */
-  /*       purple, */
-  /*       magenta, */
-  /*       cyan, */
-  /*       yellow, */
-  /*       orangered, */
-  /*       red */
-  /*     ); */
-  /*   mix-blend-mode: color-dodge; */
-  /*   min-height: 100vh; */
-  /*   opacity: 1; */
-  /* } */
+  .background::before {
+    content: "";
+    position: absolute;
+    left: 200px;
+    top: 200px;
+    translate: -50% -50%;
+    width: 200px;
+    aspect-ratio: 1;
+    background: white;
+    border-radius: 50%;
+    filter: blur(2rem);
+  }
+
+  .background::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, lime, transparent 30%),
+      conic-gradient(
+        red,
+        blue,
+        green,
+        yellow,
+        purple,
+        magenta,
+        cyan,
+        yellow,
+        orangered,
+        red
+      );
+    mix-blend-mode: color-dodge;
+    min-height: 100vh;
+    opacity: 1;
+  }
 }

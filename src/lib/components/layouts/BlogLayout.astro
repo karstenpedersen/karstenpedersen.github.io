@@ -1,11 +1,13 @@
 ---
-import BlogHeader from "../BlogHeader.astro";
+import Header from "../navigation/Header.astro";
+import Footer from "../navigation/Footer.astro";
 import BaseLayout from "./BaseLayout.astro";
 ---
 
 <BaseLayout>
-  <BlogHeader />
-  <main>
+  <Header />
+  <main class="content-grid">
     <slot />
   </main>
+  <Footer />
 </BaseLayout>

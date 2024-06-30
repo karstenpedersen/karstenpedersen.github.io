@@ -1,7 +1,13 @@
 ---
 title: Intersport Birthday Game
-image: { url: "", alt: "" }
-periodStart: 2023-01-01
+image: {
+    url: "",
+    alt: ""
+}
+period: {
+    start: 2023-01-01
+}
+type: private
 ---
 
 I joined my roommates startup for their first project, where they where tasked to create a simple balloon game for [Intersport](https://www.intersport.dk/).

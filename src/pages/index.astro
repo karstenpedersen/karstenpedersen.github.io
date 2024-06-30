@@ -1,12 +1,16 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import Layout from "../lib/components/layouts/Layout.astro";
-import BlogList from "../lib/components/BlogList.astro";
-import CaseList from "../lib/components/CaseList.astro";
-import SOCIALS from "../lib/data/socials";
-import STATUS from "../lib/data/status";
+import ProjectList from "../lib/components/content/projects/ProjectList.astro";
+import BlogList from "../lib/components/content/blog/BlogList.astro";
 
-const allCases = await getCollection("cases", ({ data }) => {
+const github = await getEntry('socials', 'github');
+const linkedin = await getEntry('socials', 'linkedin');
+const mail = await getEntry('socials', 'mail');
+const computerScienceBachelor = await getEntry('education', 'computer-science-bachelor');
+const kmdStudentWorker = await getEntry('work', 'kmd-student-worker');
+
+const allProjects = await getCollection("projects", ({ data }) => {
     return data.draft !== true;
 });
 
@@ -17,25 +21,24 @@ const allBlogs = await getCollection("blog", ({ data }) => {
 
 <Layout>
   <section>
-    <h1>Karsten Pedersen</h1>
-    <p>
+    <p class="dark:text-gray mt-0 md:mt-2">
       I'm a software developer based in Odense, Denmark. I'm currently working
-      at <a href={STATUS.kmdStudentWorker.url}>{STATUS.kmdStudentWorker.name}</a
+      at <a href={kmdStudentWorker.data.companyUrl}>{kmdStudentWorker.data.title}</a
       >, and taking a Bachelor's degree in computer science at <a
-        href={STATUS.computerScienceBachelor.url}
-        >{STATUS.computerScienceBachelor.name}</a
-      >. You can checkout my <a href={SOCIALS.github.url}
-        >{SOCIALS.github.name}</a
-      >, contact me on <a href={SOCIALS.linkedin.url}>{SOCIALS.linkedin.name}</a
+        href={computerScienceBachelor.data.url}
+        >{computerScienceBachelor.data.title}</a
+      >. You can checkout my <a href={github.data.url}
+        >{github.data.title}</a
+      >, contact me on <a href={linkedin.data.url}>{linkedin.data.title}</a
       >, <a
-        href="mailto:karstenfp.all@gmail.com?subject=Hey%20cool%20website%2C%20"
+        href={mail.data.url}
         >send me an email</a
       >, or snoop around on this website.
     </p>
   </section>
   <section>
-    <h2>Cases</h2>
-    <CaseList cases={allCases} />
+    <h2>Selected Projects</h2>
+    <ProjectList projects={allProjects} />
   </section>
   <section>
     <h2>Blogs</h2>

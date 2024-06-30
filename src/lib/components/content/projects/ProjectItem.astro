@@ -1,0 +1,15 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+---
+
+<li>
+  <a class="block w-full" href=`/projects/${project.slug}`>
+    {project.data.title}. {project.data.period.start.toLocaleDateString()}
+  </a>
+</li>

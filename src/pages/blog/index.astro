@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BlogLayout from "../../lib/components/layouts/BlogLayout.astro";
-import BlogList from "../../lib/components/BlogList.astro";
+import BlogList from "../../lib/components/content/blog/BlogList.astro";
 
 const allPosts = await getCollection("blog", ({ data }) => {
     return data.draft !== true;

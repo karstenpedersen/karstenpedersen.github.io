@@ -1,0 +1,13 @@
+---
+import IconLink from "../ui/IconLink.astro";
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  social: CollectionEntry<'socials'>;
+}
+
+const { social } = Astro.props;
+---
+
+<IconLink icon={social.data.icon} href={social.data.url} aria-label={social.data.title} />
+

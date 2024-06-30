@@ -1,10 +1,7 @@
-import SOCIALS from "./socials";
-
 const ME = {
   name: "Karsten",
   fullName: "Karsten F. Pedersen",
   email: "karstenfp.all@gmail.com",
-  socials: SOCIALS,
   age: () => {
     const currentYear = new Date().getFullYear();
     return Math.abs(2003 - currentYear);

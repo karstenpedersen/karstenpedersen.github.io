@@ -1,0 +1,15 @@
+---
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  id?: string;
+  icon: string;
+  size?: number;
+}
+
+const { icon, size = 20, ...props } = Astro.props;
+---
+
+<button {...props}>
+  <Icon name={icon} size={size} />
+</button>

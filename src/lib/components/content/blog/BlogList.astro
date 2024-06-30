@@ -1,0 +1,16 @@
+---
+import BlogItem from "./BlogItem.astro";
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  blogs: CollectionEntry<'blog'>[];
+}
+
+const { blogs } = Astro.props;
+---
+
+<ul>
+  {blogs.map(blog => (
+    <BlogItem blog={blog} />
+  ))}
+</ul>

@@ -1,34 +1,26 @@
 ---
 import BlogLayout from "./BlogLayout.astro";
-import TableOfContents from "../TableOfContents.astro";
-import Tags from "../Tags.astro";
-import { format } from "date-fns";
+import BlogList from "../content/blog/BlogList.astro";
+import { getCollection } from 'astro:content';
 
 const { post } = Astro.props;
 const frontmatter = post.data;
-const { Content, headings } = await post.render();
+const { Content } = await post.render();
+
+const blogs = await getCollection("blog", ({ slug }) => {
+  return frontmatter.relatedPosts.some(blog => blog.slug === slug);
+});
 ---
 
 <BlogLayout>
-  <article class="apply py-2 px-4 max-w-xl m-auto">
-    <h1>{frontmatter.title}</h1>
-
-    <div>
-      <p>Published: {format(frontmatter.publishedAt, "PP")}</p>
-      {frontmatter.publishedAt.getTime() !== frontmatter.editedAt.getTime() && <p>Edited: {format(frontmatter.editedAt, "PPp")}</p>}
-
-      <Tags tags={frontmatter.tags} />
+  <article id="reading-area">
+    <div class="read-dark:bg-dark read-dark:text-light">
+      <Content />
     </div>
-
-    <hr />
-
-    <Content />
-
-    <hr />
-
-    <h2>Related Posts</h2>
-    {frontmatter.relatedPosts.map(p => (
-      <li><a href={p.slug}>{p.slug}</a></li>
-    ))}
   </article>
+
+  <section>
+    <h2>Blogs</h2>
+    <BlogList blogs={blogs} />
+  </section>
 </BlogLayout>

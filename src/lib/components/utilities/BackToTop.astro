@@ -1,0 +1,11 @@
+---
+import IconButton from "../ui/IconButton.astro";
+---
+
+<IconButton id="back-to-top" icon="arrow-up" size={28} />
+
+<script>
+  document.getElementById('back-to-top')?.addEventListener('click', () => {
+    window.scrollTo(0, 0);
+  });
+</script>

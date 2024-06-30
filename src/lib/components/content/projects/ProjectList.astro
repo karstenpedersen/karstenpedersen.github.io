@@ -1,0 +1,16 @@
+---
+import ProjectItem from "./ProjectItem.astro";
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  projects: CollectionEntry<'projects'>[];
+}
+
+const { projects } = Astro.props;
+---
+
+<ul>
+  {projects.map(project => (
+    <ProjectItem project={project} />
+  ))}
+</ul>
